@@ -1,0 +1,99 @@
+@import url(http://weloveiconfonts.com/api/?family=zocial);
+@import url(http://weloveiconfonts.com/api/?family=entypo|fontawesome|zocial);
+@font-face {
+font-family: Sintony;
+src: url(‘http://localhost/orga/fonts/Sintony-Regular.otf’)
+format(“opentype”);
+}
+
+/* entypo */
+[class*="entypo-"]:before {
+  font-family: 'entypo', sans-serif;
+}
+
+/* fontawesome */
+[class*="fontawesome-"]:before {
+  font-family: 'FontAwesome', sans-serif;
+}
+
+body {
+	font-family:sintony;
+}
+
+.kopf2 {
+	background-color:#6e6e6e;
+	-webkit-print-color-adjust: exact; 
+	padding:19px 30px;
+	font-size:32px;
+	color:#FFFFFF;
+	border:3px solid #6e6e6e;
+}
+
+.name {
+	float:left;
+}
+
+.datum {
+	float:right;
+}
+
+.haupt {
+	padding:19px 30px;
+	margin-bottom:20px;
+	max-height:500px;
+	border:3px solid #6e6e6e;
+}
+
+.kurzbeschreibung {
+	font-size:32px;
+}
+
+.beschreibung {
+	margin-top:20px;
+	text-align:justify;
+}
+
+.seitenumbruch {
+	 page-break-after:always;
+}
+
+.eintrag {
+	width:48%;
+	float:left;
+	margin:0px 1%;
+}
+
+@media print {
+
+		body {
+			font-family:sintony;
+		}
+
+		.kopf {
+			background-color:#6e6e6e;
+			padding:19px 30px;
+			font-size:32px;
+			color:#FFFFFF;
+			}
+
+		.name {
+			float:left;
+			}
+
+		.datum {
+			float:right;
+		}
+
+		.haupt {
+			padding:19px 30px;
+		}
+
+		.kurzbeschreibung {
+			font-size:32px;
+		}
+
+		.beschreibung {
+			margin-top:20px;
+			text-align:justify;
+		}
+}
