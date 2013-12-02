@@ -45,6 +45,7 @@ $farbe = $farben[rand(1,(count($farben)-1))];
 
 			document.onkeypress = stopRKey;
 	</script>
+	
 </head>
  <body>
  

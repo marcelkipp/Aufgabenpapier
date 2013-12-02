@@ -5,6 +5,7 @@
 	$mysql_user="orga";
 	$mysql_password="virtuos";
 	$action ="";
+	$searchterm="";
 	mysql_connect($mysql_server,$mysql_user,$mysql_password);
 	@mysql_select_db($database) or die( "Unable to select database");
 	if((array_keys($_GET)!=NULL) && ($_GET["view"]=="archiv")){
@@ -50,10 +51,16 @@
 		if ($action == "unarchiv") {
 			$job_id = $_POST["job_id"];
 			$query = "UPDATE  `jobs` SET  `archiv` =  0 WHERE `job_id` =$job_id;";
-		}		
-		$result=mysql_query($query);
-		if(!$result){
+		}	
+		if ($action == "search") {
+			$keyword = $_POST["keyword"];
+			$searchterm = "value='$keyword'";
+			$suche = "SELECT *  FROM `jobs` WHERE `titel` LIKE '%$keyword%' OR `beschreibung` LIKE '%$keyword%' OR `person` LIKE '%$keyword%'";
+		} else {
+			$result=mysql_query($query);
+			if(!$result){
 			die("Ungültige Anfrage:".mysql_error());
+		}
 		}
 		
 		
@@ -74,7 +81,7 @@
 	<a href="uebersicht.php?view=archiv" id="text3">Archiv</a>
 	<a href="mailto:mkipp@uos.de" id="text4">Fragen</a>
 	<div class="menu-button">
-		<a href="#" id="showLeft"><span id="button" class="entypo-left-open-mini navigation_button"></span></a>
+		<a href="#" id="showLeft"><span id="button" class="entypo-right-open-mini navigation_button"></span></a>
 	</div>
 </nav>
 
@@ -117,14 +124,16 @@
 </div>
 <!--//MENU ENDE//-->
 
+
 <div class="wrapper-uebersicht gridly" id="wrapper-push">
 	<div class="heading-uebersicht">
 		<?=$ueberschrift?>
 	</div>
 	<div id="suche">
 		<div id="suchleiste">
-			<form>
-				<input id="input_suche" type="text" name="Suche" placeholder="Suche"><br>
+			<form action="uebersicht.php" method="POST">
+				<input type="hidden" name="action" value="search"/>
+				<input id="keyword" class="input_suche" type="text" name="keyword" placeholder="Suche" <?=$searchterm ?>/>
 				<button class="button-suche"><span class="fontawesome-search"></span> Suchen</button>
 				<div style="clear:both;"></div>
 			</form>
@@ -135,6 +144,39 @@
 			<a href="#">Name</a> <a href="#">Aufgabe</a> <a href="#">Datum</a> <a href="#"><span class="fontawesome-random"></span></a>
 		</div>
 	</div>
+	
+	<script>
+	var druckjobs = new Array();
+	function hasClass(element, cls) {
+		return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+	}
+	function selectjob(element, number){
+		if (! hasClass(document.getElementById(element), "drucken")) {
+			document.getElementById(element).className = document.getElementById(element).className.replace( /(?:^|\s)nichtdrucken(?!\S)/g , '' );
+			document.getElementById(element).className += ' drucken';
+			druckjobs.push(number);
+		} else {
+			document.getElementById(element).className = document.getElementById(element).className.replace( /(?:^|\s)drucken(?!\S)/g , '' );
+			document.getElementById(element).className += ' nichtdrucken';
+			var index = druckjobs.indexOf(number);
+			druckjobs.splice(index,1);			
+		}
+	}
+	
+	function getDruckjobs() {
+		var text = "";
+		for(index = 0; index < druckjobs.length; ++index) {
+			text += druckjobs[index]
+			if (index != druckjobs.length-1) 
+				text += ",";
+		}
+		return text;
+	}
+	
+	</script>	
+	
+	<div class="drucken_uebersicht" onclick="window.open('print.php?jobs='+getDruckjobs())">Drucken</div>
+	
 	<?php
 		if ($action=="insert"){?>
 	<div class="gespeichert">
@@ -142,6 +184,9 @@
 	</div>
 	<?php }?>
 	<div id="container" class="container-einstellungen">	
+	
+
+	
 <!--ITEM START-->
 	<?php
 		while($job=mysql_fetch_assoc($jobs)) {
@@ -149,7 +194,7 @@
 			$datumarray = explode('-', $datum);
 			$datumtext = $datumarray[2].'.'.$datumarray[1].'.'.$datumarray[0];
 	?>
-		<div class="item brick small" id="itemblock" onmouseover="showcorner('itemblock_ecke<?=$job["job_id"]?>')" onmouseout="hidecorner('itemblock_ecke<?=$job["job_id"]?>')">
+		<div class="item brick small nichtdrucken" id="itemblock-<?=$job["job_id"]?>" onclick="selectjob('itemblock-<?=$job["job_id"]?>', <?=$job["job_id"]?>)" onmouseover="showcorner('itemblock_ecke<?=$job["job_id"]?>')" onmouseout="hidecorner('itemblock_ecke<?=$job["job_id"]?>')">
 			<a href="#openModal<?=$job["job_id"]?>">
 				<div class="triangle-topright" id="itemblock_ecke<?=$job["job_id"]?>"><span class="entypo-popup icon_popup"></span></div>
 			</a>
@@ -182,7 +227,7 @@
 						</div>
 					<!-- //ENDE INHALT//-->
 						<div class="button-bereich-popup">
-							<div class="button-drucken-popup">
+							<div onclick="window.open('print.php?jobs='+<?=$job['job_id']?>)" class="button-drucken-popup">
 								<span class="fontawesome-print"></span> Drucken
 							</div>
 							<form method="POST" action="uebersicht.php?view=<?=$view?>">
@@ -190,9 +235,6 @@
 								<input type="hidden" name="job_id" value="<?=$job['job_id']?>">
 								<input type="hidden" name="action" value="<?=$archiv_action?>">
 							</form>
-							<div class="button-pdf-popup">
-								<span class="entypo-download"></span> Download
-							</div>
 							<div style="clear:both;"></div>
 						</div>
 				</div>

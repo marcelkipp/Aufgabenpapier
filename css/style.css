@@ -78,6 +78,35 @@ format(“opentype”);
 	transition:all 1s ease 0s;*/
 }
 
+.drucken_uebersicht {
+	padding:5px 10px;
+	background-color:rgba(255,255,255,0);
+	position:fixed;
+	right:10px;
+	bottom:10px;
+	color:black;
+	z-index:100;
+	cursor:pointer;
+	border:1px solid #000;
+}
+
+.drucken_uebersicht:hover{
+	background-color:rgba(211, 84, 0,1);
+	color:white;
+	border:1px solid #fff;
+	transition:all 1s;
+}
+
+.drucken {
+	border: 2px solid #2C3E50;
+	cursor:pointer;
+}
+
+.nichtdrucken {
+	border: 2px solid #fff;
+	cursor:pointer;
+}
+
 .tiny_menu_inner_4 {
 	margin:0px auto;
 	text-align:center;
@@ -412,9 +441,8 @@ input:hover {
 textarea {
 	margin:10px 100px;
 	border:3px solid rgba(0,0,0,0.35);
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	/*border-radius: 6px;*/
+	-webkit-border-radius:0px;
+	-moz-border-radius:0px;
 	padding:3px 5px;
 	font-size:15px;
 	color:#34495E;
@@ -476,7 +504,7 @@ textarea:hover {
 	width:1146px!important;
 	margin:36px auto;
 	overflow:hidden;
-	margin-left:335px;
+	margin-left:135px;
 	transition:all 2s;
 }
 
@@ -507,7 +535,7 @@ textarea:hover {
 	width:300px;
 }
 
-#input_suche {
+.input_suche {
 	width:871px;
 	margin:0px auto;
 	float:left;
@@ -575,7 +603,7 @@ textarea:hover {
 	/*border-radius:6px 6px 6px 6px;*/
 	font-size:20px;
 	color:#FFFFFF;
-	margin:-40px auto auto 26px;
+	margin:0px auto auto 26px;
 	border:none;
 	float:right;
 }
@@ -651,10 +679,10 @@ textarea:hover {
 	background-color:rgba(0,0,0,0.5);
 	padding:10px 0px 10px 10px;
 	color:white;
-	border-radius:0px 0px 12px 12px;
+	/*border-radius:0px 0px 12px 12px;
 	-webkit-box-shadow: 0 5px #393939;
 	-moz-box-shadow: 0 5px #393939;
-	box-shadow: 0 5px #393939;
+	box-shadow: 0 5px #393939;*/
 }
 
 .container-einstellungen {
@@ -884,12 +912,12 @@ textarea:hover {
 }
  
 .cbp-spmenu-left {
-    left: 0px;
+    left: -200px;
 }
  
 
 .cbp-spmenu-left.cbp-spmenu-open {
-    left: -200px;
+    left: 0px;
 }
  
  
@@ -1068,7 +1096,7 @@ textarea:hover {
 	/*background-color:#B1DCFB;*/
 	color:black;
 	font-size:20px;
-	width:116px;
+	width:48%;
 	/*border-radius:6px;*/
 	text-align:center;
 	cursor:pointer;
@@ -1086,13 +1114,13 @@ textarea:hover {
 	/*background-color:#c0392b;*/
 	color:black;
 	font-size:20px;
-	width:231px;
+	width:48%;
 	/*border-radius:6px;*/
 	text-align:center;
 	border:none;
 	cursor:pointer;
 	float:left;
-	margin:15px 31px;
+	margin:15px 0px;
 }
 
 .button-archive-popup:hover{
