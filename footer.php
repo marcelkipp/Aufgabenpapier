@@ -46,7 +46,7 @@ $(function() {
 			classie.toggle( menuLeft, 'cbp-spmenu-open' );
 			disableOther( 'showLeft' );
 			wrapperpush.className = 'wrapper-push';
-		//	button.className = 'entypo-right-open-mini navigation_button';
+			button.className = 'entypo-right-open-mini navigation_button';
 			button.id = 'buttoneingeklappt';
 			};
 			

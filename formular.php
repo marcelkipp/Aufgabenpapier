@@ -14,7 +14,7 @@
 	<a href="uebersicht.php?view=archiv" id="text3">Archiv</a>
 	<a href="mailto:mkipp@uos.de" id="text4">Fragen</a>
 	<div class="menu-button">
-		<a href="#" id="showLeft"><span id="button" class="entypo-right-open-mini navigation_button"></span></a>
+		<a href="#" id="showLeft"><span id="button" class="entypo-left-open-mini navigation_button"></span></a>
 	</div>
 </nav>
 
